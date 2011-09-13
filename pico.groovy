@@ -39,7 +39,9 @@ if (args.size() > 0 && args[0] == "log") {
             parent = it.readLine()
             println "id       : " + head
             println "parent   : " + parent
-            println "timestamp: " + it.readLine()
+            def timestamp = Calendar.instance
+            timestamp.timeInMillis = Long.parseLong(it.readLine().trim())
+            println "timestamp: " + timestamp.format("yyyy-MM-dd HH:mm:ss")
             println "tree     : " + it.readLine()
             println "comment  : " + it.readLines().join("\n") + "\n"
             
