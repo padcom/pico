@@ -37,7 +37,7 @@ if (args.size() > 0 && args[0] == "log") {
 	while (commit.exists()) {
 		commit.withReader {
 			parent = it.readLine()
-			println "id	   : " + head
+			println "id       : " + head
 			println "parent   : " + parent
 			def timestamp = Calendar.instance
 			timestamp.timeInMillis = Long.parseLong(it.readLine().trim())
