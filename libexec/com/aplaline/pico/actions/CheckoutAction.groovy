@@ -7,7 +7,7 @@ import groovy.io.*
 import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 
-class CheckoutAction implements Action {
+class CheckoutAction extends Action {
 	private String[] args
 
 	boolean configure(String[] args) {

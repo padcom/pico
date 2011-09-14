@@ -7,23 +7,15 @@ import groovy.io.*
 import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 
-class CommitAction implements Action {
+class CommitAction extends Action {
 	private String message
 
 	boolean configure(String[] args) {
-		def cli = new CliBuilder(usage: "pico commit -m message")
-		cli.m longOpt: "message", args: 1, argName: "message", "Commit message"
-		cli.h longOpt: "help", "Show usage information"
+		def options = opts("pico commit -m message", args, [
+			m: [ longOpt: "message", args: 1, argName: "message", description: "Commit message" ],
+		])
 
-		def options = cli.parse(args)
-		if (!options) {
-			return false
-		}
-
-		if (options.h) {
-			cli.usage()
-			return false
-		}
+		if (!options) return
 
 		this.message = options.m
 		if (!message) {

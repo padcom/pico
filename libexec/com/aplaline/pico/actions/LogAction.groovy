@@ -3,7 +3,7 @@ package com.aplaline.pico.actions
 import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 
-class LogAction implements Action {
+class LogAction extends Action {
 	boolean configure(String[] args) {
 		return true
 	}
