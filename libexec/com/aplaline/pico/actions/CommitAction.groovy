@@ -8,10 +8,30 @@ import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 
 class CommitAction implements Action {
-	private String[] args
+	private String message
 
-	void configure(String[] args) {
-		this.args = args
+	boolean configure(String[] args) {
+		def cli = new CliBuilder(usage: "pico commit -m message")
+		cli.m longOpt: "message", args: 1, argName: "message", "Commit message"
+		cli.h longOpt: "help", "Show usage information"
+
+		def options = cli.parse(args)
+		if (!options) {
+			return false
+		}
+
+		if (options.h) {
+			cli.usage()
+			return false
+		}
+
+		this.message = options.m
+		if (!message) {
+			println "ERROR: No message specified"
+			return false
+		}
+
+		return true
 	}
 
 	void execute() {
@@ -39,7 +59,7 @@ class CommitAction implements Action {
 		tree.id = Utils.sha1(treeId.bytes)
 	
 		def commit = new Commit(tree: tree)
-		commit.message = args[1]
+		commit.message = this.message
 	
 		def head = new File(".pico/HEAD")
 	

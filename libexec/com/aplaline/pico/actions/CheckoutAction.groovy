@@ -10,8 +10,9 @@ import com.aplaline.pico.api.*
 class CheckoutAction implements Action {
 	private String[] args
 
-	void configure(String[] args) {
+	boolean configure(String[] args) {
 		this.args = args
+		return true
 	}
 
 	void execute() {

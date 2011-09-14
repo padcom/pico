@@ -1,6 +1,6 @@
 package com.aplaline.pico
 
 interface Action {
-	void configure(String[] args)
+	boolean configure(String[] args)
 	void execute()
 }

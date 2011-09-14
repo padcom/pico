@@ -4,7 +4,8 @@ import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 
 class LogAction implements Action {
-	void configure(String[] args) {
+	boolean configure(String[] args) {
+		return true
 	}
 
 	void execute() {
