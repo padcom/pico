@@ -5,6 +5,14 @@ import com.aplaline.pico.api.*
 
 class LogAction extends Action {
 	boolean configure(String[] args) {
+		def options = opts("pico log", args, [:])
+		if (!options) return false
+
+		if (options.arguments().size() > 0) {
+			println "ERROR: Unknown argument(s) ${args}"
+			return false
+		}
+		
 		return true
 	}
 

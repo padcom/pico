@@ -8,32 +8,41 @@ import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 
 class CheckoutAction extends Action {
-	private String[] args
+	private String revision
+
+	private String findRevision(String rev) {
+		def commits = []
+		new File(".pico/objects").eachFileMatch(FileType.FILES, ~"${rev}.+") { commits << it.name }
+		if (commits.size() == 0) {
+			println "ERROR: commit ${rev} not found"
+			return ""
+		} else if (commits.size() > 1) {
+			println "ERROR: commit ${rev} is ambigious"
+			return ""
+		} else {
+			return commits[0]
+		}
+	}
 
 	boolean configure(String[] args) {
-		this.args = args
+		def options = opts("pico checkout [revision]", args, [:])
+		if (!options) return false
+
+		def arguments = options.arguments()
+		if (arguments.size() > 0) {
+			revision = findRevision(arguments[0])
+			if (!revision) return false
+		} else {
+			new File(".pico/HEAD").withReader { revision = it.readLine() }
+		}
+		
 		return true
 	}
 
 	void execute() {
 		def ant = new AntBuilder()
 	
-		def commit = new Commit()
-		if (args.size() == 1)
-			new File(".pico/HEAD").withReader { commit.id = it.readLine() }
-		else {
-			def commits = []
-			new File(".pico/objects").eachFileMatch(FileType.FILES, ~"${args[1]}.+") { commits << it.name }
-			if (commits.size() == 0) {
-				println "Error: commit ${args[1]} not found"
-				return
-			} else if (commits.size() > 1) {
-				println "Error: commit ${args[1]} is ambigious"
-				return
-			} else {
-				commit.id = commits[0]
-			}
-		}
+		def commit = new Commit(id: revision)
 
 		new File(".pico/objects/" + commit.id).withReader {
 			commit.parentId = it.readLine()
