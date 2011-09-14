@@ -4,10 +4,10 @@ import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 
 class LogAction implements Action {
-	Integer configure(String[] args) {
+	void configure(String[] args) {
 	}
 
-	Integer execute() {
+	void execute() {
 		def head = new File(".pico/HEAD").readLines()[0]
 		def commit = new File(".pico/objects/" + head)
 		while (commit.exists()) {

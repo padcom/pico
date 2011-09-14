@@ -10,11 +10,11 @@ import com.aplaline.pico.api.*
 class CommitAction implements Action {
 	private String[] args
 
-	Integer configure(String[] args) {
+	void configure(String[] args) {
 		this.args = args
 	}
 
-	Integer execute() {
+	void execute() {
 		def tree = new Tree()
 		def treeId = ""
 	
