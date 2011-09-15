@@ -3,6 +3,7 @@ import com.aplaline.pico.api.*
 import com.aplaline.pico.actions.*
 
 Utils.parentClassLoader = getClass().getClassLoader()
+Utils.makePicoFolderHidden()
 
 Preferences.loadUserSettings()
 

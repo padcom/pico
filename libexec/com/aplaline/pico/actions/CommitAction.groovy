@@ -34,7 +34,7 @@ class CommitAction extends Action {
 			if (file.absolutePath.contains(".pico")) return
 	
 			println Utils.makeRelative(file.absolutePath)
-			def entry = new Entry(path: Utils.makeRelative(file.absolutePath))
+			def entry = new Entry(path: Utils.makeRelative(file.absolutePath), timestamp: file.lastModified())
 	
 			def temp = new ByteArrayOutputStream()
 			def zip  = new GZIPOutputStream(temp)
@@ -73,7 +73,7 @@ class CommitAction extends Action {
 	
 		new File(".pico/objects/" + commit.tree.id).withWriter { w ->
 			commit.tree.entries.each { entry ->
-				w.println("${entry.id}=${entry.path}")
+				w.println("${entry.id}=${entry.path}|${entry.timestamp}")
 			}
 		}
 	
