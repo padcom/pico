@@ -13,13 +13,4 @@ class Utils {
 	static String makeRelative(String path) {
 		new File(".").toURI().relativize(new File(path).toURI()).getPath();
 	}
-
-	static String computeActionClassName(String action) {
-		action.replaceAll("(^\\S|(-\\S))") { it[0].toUpperCase() }.split("-").join("") + "Action"
-	}
-
-	static Class loadActionClass(String action) {
-		GroovyClassLoader loader = new GroovyClassLoader(parentClassLoader);
-		loader.parseClass(new File("${System.env['PICO_HOME']}/libexec/com/aplaline/pico/actions/${action}.groovy"))
-	}
 }
