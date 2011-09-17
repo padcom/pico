@@ -10,7 +10,7 @@ class Utils {
 		new BigInteger(1, md.digest(input)).toString(16).padLeft( 40, '0' ) 
 	}
 
-	static String makeRelative(String path) {
+	static String makeRelativePath(String path) {
 		new File(".").toURI().relativize(new File(path).toURI()).getPath();
 	}
 }

@@ -33,8 +33,8 @@ class CommitAction extends Action {
 		new File(".").eachFileRecurse(FileType.FILES) { file ->
 			if (file.absolutePath.contains(".pico")) return
 	
-			println Utils.makeRelative(file.absolutePath)
-			def entry = new Entry(path: Utils.makeRelative(file.absolutePath))
+			println Utils.makeRelativePath(file.absolutePath)
+			def entry = new Entry(path: Utils.makeRelativePath(file.absolutePath))
 	
 			def temp = new ByteArrayOutputStream()
 			def zip  = new GZIPOutputStream(temp)
