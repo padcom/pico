@@ -18,6 +18,7 @@ class Entry {
 		zip.finish()
 		entry.blob = temp.toByteArray()
 		entry.id = Utils.sha1(entry.blob)
+		new File(".pico/objects/" + entry.id).bytes = entry.blob
 		return entry
 	}
 }
