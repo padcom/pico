@@ -46,5 +46,6 @@ class Utils {
 	static void ensureProperFolderStructure() {
 		new File(".pico").mkdir()
 		new File(".pico/objects").mkdir()
+		new File(".pico/tags").mkdir()
 	}
 }
