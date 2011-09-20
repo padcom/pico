@@ -9,7 +9,7 @@ class StatusAction extends Action {
 	}
 
 	void execute() {
-		def head = new Commit(id: Commit.HEAD())
+		def head = new Commit(id: Commit.HEAD)
 		head.read()
 		head.tree.read()
 		head.tree.entries.each { entry ->

@@ -42,4 +42,9 @@ class Utils {
 			return commits[0]
 		}
 	}
+
+	static void ensureProperFolderStructure() {
+		new File(".pico").mkdir()
+		new File(".pico/objects").mkdir()
+	}
 }

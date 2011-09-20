@@ -19,25 +19,23 @@ class CheckoutAction extends Action {
 			revision = Utils.findRevision(arguments[0])
 			if (!revision) return false
 		} else {
-			new File(".pico/HEAD").withReader { revision = it.readLine() }
+			revision = Commit.HEAD
 		}
 		
 		return true
 	}
 
 	void execute() {
-		def ant = new AntBuilder()
-	
 		def commit = new Commit(id: revision)
 		commit.read()
 		commit.tree.read()
 	
-		new File(".pico-test/").mkdir()
+		new File(".pico-test/").mkdirs()
 	
 		commit.tree.entries.each { entry ->
 			println entry.path
 			def output = new File(".pico-test/" + entry.path)
-			ant.mkdir(dir: output.parent)
+			new File(output.parent).mkdirs()
 			output.bytes = new GZIPInputStream(new ByteArrayInputStream(entry.blob)).bytes
 		}
 	}

@@ -17,22 +17,14 @@ class LogAction extends Action {
 	}
 
 	void execute() {
-		def head = new File(".pico/HEAD").readLines()[0]
-		def commit = new File(".pico/objects/" + head)
-		while (commit.exists()) {
-			commit.withReader {
-				def parent = it.readLine()
-				println "id       : " + head
-				println "parent   : " + parent
-				def timestamp = Calendar.instance
-				timestamp.timeInMillis = Long.parseLong(it.readLine().trim())
-				println "timestamp: " + timestamp.format("yyyy-MM-dd HH:mm:ss")
-				println "tree	 : " + it.readLine()
-				println "comment  : " + it.readLines().join("\n") + "\n"
-				
-				commit = new File(".pico/objects/" + parent)
-				head = parent
-			}
+		def commit = new Commit(id: Commit.HEAD)
+		while (commit.id != 'null') {
+			commit.read()
+			println "commit ${commit.id}"
+			println "Author: Unknown <unknown@host.com>"
+			println "Date ${commit.timestamp.format('yyyy-MM-dd HH:mm:ss')}"
+			println "\n${commit.message}\n"
+			commit.id = commit.parentId
 		}
 	}
 }

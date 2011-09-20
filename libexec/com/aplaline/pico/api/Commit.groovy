@@ -13,12 +13,33 @@ class Commit {
 			date = Long.parseLong(it.readLine())
 			tree = new Tree()
 			tree.id = it.readLine()
+			message = it.readLine()
 		}
 	}
 
-	static String HEAD() {
+	void write() {
+		new File(".pico/objects/" + id).withWriter { 
+			it.println parentId
+			it.println date
+			it.println tree.id
+			it.println message
+		}
+	}
+
+	Calendar getTimestamp() {
+		def result = Calendar.instance
+		result.timeInMillis = date
+		return result
+	}
+
+	static String getHEAD() {
 		def revision = ""
 		new File(".pico/HEAD").withReader { revision = it.readLine() }
 		return revision
+	}
+
+	static void setHEAD(String id) {
+		def head = new File(".pico/HEAD")
+		head.withWriter { w -> w.println id }
 	}
 }
