@@ -1,9 +1,10 @@
+@Grab('org.ini4j:ini4j:0.5.2')
+
 import com.aplaline.pico.*
 import com.aplaline.pico.api.*
 import com.aplaline.pico.actions.*
 
 ActionClassLoader.initialize(getClass().getClassLoader())
-Utils.makePicoFolderHidden()
 
 Preferences.loadUserSettings()
 
@@ -14,3 +15,5 @@ if (args.size() > 0) {
 	def action = (Action) actionClass.newInstance()
 	if (action.configure(args.tail())) action.execute()
 }
+
+Utils.makePicoFolderHidden()
