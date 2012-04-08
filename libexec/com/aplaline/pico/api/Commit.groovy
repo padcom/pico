@@ -33,8 +33,11 @@ class Commit {
 	}
 
 	static String getHEAD() {
-		def revision = ""
-		new File(".pico/HEAD").withReader { revision = it.readLine() }
+		def revision = "null"
+		def head = new File(".pico/HEAD")
+		if (head.exists()) {
+			head.withReader { revision = it.readLine() }
+		}
 		return revision
 	}
 

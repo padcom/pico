@@ -11,7 +11,7 @@ class Entry {
 	byte[] blob
 
 	static Entry create(File file) {
-		def entry = new Entry(path: Utils.makeRelative(file.absolutePath), timestamp: file.lastModified())
+		def entry = new Entry(path: Utils.makeRelativePath(file.absolutePath), timestamp: file.lastModified())
 		def temp = new ByteArrayOutputStream()
 		def zip  = new GZIPOutputStream(temp)
 		zip.write(file.bytes)
